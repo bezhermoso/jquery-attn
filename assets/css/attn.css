@@ -1,0 +1,55 @@
+/* 
+    Document   : attn
+    Created on : 07 16, 13, 10:10:54 PM
+    Author     : Bezalel
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+body
+{
+    background-color: #eee;
+}
+
+ul.attn-container
+{
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+ul.attn-container li.alert
+{
+    margin: 3px;
+    padding: 3px 8px;
+}
+
+ul.attn-container li.alert.alert-error
+{
+    background-color: red;
+    color: #fff;
+}
+
+ul.attn-container li.alert.alert-success
+{
+    background-color: green;
+    color: #fff;
+}
+
+ul.attn-container li.alert.alert-warning
+{
+    background-color: orange;
+    color: #fff;
+}
+
+ul.attn-container li.alert.alert-info
+{
+    background-color: blue;
+    color: #fff;
+}
+
+ul.attn-container li.alert a.close
+{
+    float: right;
+    cursor: pointer;
+}

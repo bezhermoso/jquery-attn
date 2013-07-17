@@ -65,6 +65,16 @@
             });
             
             attnContainer.addClass('attn-container');
+            
+            $(this.element).bind('attn.clear', function(){
+                attnContainer.children().each(function(event){
+                    $(this).trigger('attn.removeitem');
+                });
+            });
+        }
+        
+        this.clear = function(){
+            return $(this.element).trigger('attn.clear');
         }
         
         this.isValidItemType = function(type){
@@ -156,12 +166,14 @@
         
         this._bindItemEvents = function(item){
             
-            $(item).bind('attn.close', function(){
+            $(item).bind('attn.closeitem', function(){
                 var elem = this;
                 $(elem).fadeOut('fast', function(){
-                    $(this).remove();
+                    $(this).trigger('attn.removeitem');
                 });
-            });
+            }).bind('attn.removeitem', function(){
+                $(this).remove();
+            })
             
         }
         
@@ -184,14 +196,14 @@
                 var closeBtn = $(this.attn.options.closeBtn);
                 closeBtn.prependTo(elem);
                 closeBtn.click(function(){
-                    $(elem).trigger('attn.close');
+                    $(elem).trigger('attn.closeitem');
                 })
             }
             
             if(this.options.fade != null && typeof this.options.fade == 'number'){
                 var self = this;
                 setTimeout(function(){
-                    self.element.trigger('attn.close');
+                    self.element.trigger('attn.closeitem');
                 }, this.options.fade)
             }
             return elem;

@@ -68,7 +68,7 @@
             
             $(this.element).bind('attn.clear', function(){
                 attnContainer.children().each(function(event){
-                    $(this).trigger('attn.removeitem');
+                    $(this).trigger('attn.itemremove');
                 });
             });
         }
@@ -158,23 +158,23 @@
         this.addItem = function(item){
             var itemElem = item.toHtmlElement();
             itemElem.appendTo(this.options.container);
+            itemElem.trigger('attn.itemshow');
             itemElem.data('attnItem', item);
             this._bindItemEvents(itemElem);
-            
             return item;
         }
         
         this._bindItemEvents = function(item){
             
-            $(item).bind('attn.closeitem', function(){
+            $(item).bind('attn.itemclose', function(){
                 var elem = this;
                 $(elem).fadeOut('fast', function(){
-                    $(this).trigger('attn.removeitem');
+                    $(this).trigger('attn.itemremove');
                 });
             }).bind('attn.removeitem', function(){
-                $(this).remove();
-            })
-            
+                var attnItem = $(this).data('attnItem');
+                attnItem.close();
+            });
         }
         
         this._init(options);
@@ -196,18 +196,22 @@
                 var closeBtn = $(this.attn.options.closeBtn);
                 closeBtn.prependTo(elem);
                 closeBtn.click(function(){
-                    $(elem).trigger('attn.closeitem');
+                    $(elem).trigger('attn.itemclose');
                 })
             }
             
             if(this.options.fade != null && typeof this.options.fade == 'number'){
                 var self = this;
                 setTimeout(function(){
-                    self.element.trigger('attn.closeitem');
+                    self.element.trigger('attn.itemclose');
                 }, this.options.fade)
             }
             return elem;
         };
+        
+        this.close = function(){
+            $(this.element).remove();
+        }
     };
     
     

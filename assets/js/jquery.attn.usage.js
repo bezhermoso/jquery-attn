@@ -13,5 +13,11 @@ jQuery(function($){
         fade: 7000
     });
     
+    $('body').attn('warning', {
+        message: 'See what happens when you close me.',
+        onClose: function(){
+            alert('Tada! This is kind of lame. But you can actually do whatever you want here!');
+        }
+    });
 });
 

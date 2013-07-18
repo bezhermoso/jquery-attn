@@ -28,7 +28,8 @@
         onClose: $.noop,
         onLoad: $.noop,
         fade: null,
-        
+        onBeforeClose: $.noop,
+        onAfterClose: $.noop,
         commonClass: 'alert'
     };
     
@@ -158,22 +159,24 @@
         this.addItem = function(item){
             var itemElem = item.toHtmlElement();
             itemElem.appendTo(this.options.container);
-            itemElem.trigger('attn.itemshow');
+            var event = jQuery.Event('attn.itemshow');
+            itemElem.trigger(event);
             itemElem.data('attnItem', item);
             this._bindItemEvents(itemElem);
             return item;
         }
         
         this._bindItemEvents = function(item){
-            
-            $(item).bind('attn.itemclose', function(){
+            var self = this;
+            $(item).bind('attn.itemclose', function(event){
+                
                 var elem = this;
-                $(elem).fadeOut('fast', function(){
-                    $(this).trigger('attn.itemremove');
-                });
-            }).bind('attn.removeitem', function(){
+                var attnItem = $(elem).data('attnItem');
+                attnItem.close(event);
+                
+            }).bind('attn.itemremove', function(event){
                 var attnItem = $(this).data('attnItem');
-                attnItem.close();
+                attnItem.remove(event);
             });
         }
         
@@ -209,7 +212,18 @@
             return elem;
         };
         
-        this.close = function(){
+        this.close = function(event){
+            var self = this;
+            this.options.onBeforeClose.apply(this, [event]);
+            if(!event.isDefaultPrevented()){
+                $(this.element).fadeOut('fast', function(){
+                    self.remove();
+                    self.options.onAfterClose.apply(self, [event]);
+                });
+            }
+        };
+        
+        this.remove = function(){
             $(this.element).remove();
         }
     };

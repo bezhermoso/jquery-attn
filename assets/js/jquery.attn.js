@@ -69,7 +69,7 @@
             
             $(this.element).bind('attn.clear', function(){
                 attnContainer.children().each(function(event){
-                    $(this).trigger('attn.itemremove');
+                    $(this).trigger('attn.dismiss');
                 });
             });
         }
@@ -159,7 +159,7 @@
         this.addItem = function(item){
             var itemElem = item.toHtmlElement();
             itemElem.appendTo(this.options.container);
-            var event = jQuery.Event('attn.itemshow');
+            var event = jQuery.Event('attn.show');
             itemElem.trigger(event);
             itemElem.data('attnItem', item);
             this._bindItemEvents(itemElem);
@@ -168,13 +168,13 @@
         
         this._bindItemEvents = function(item){
             var self = this;
-            $(item).bind('attn.itemclose', function(event){
+            $(item).bind('attn.dismiss', function(event){
                 
                 var elem = this;
                 var attnItem = $(elem).data('attnItem');
                 attnItem.close(event);
                 
-            }).bind('attn.itemremove', function(event){
+            }).bind('attn.remove', function(event){
                 var attnItem = $(this).data('attnItem');
                 attnItem.remove(event);
             });
@@ -199,14 +199,14 @@
                 var closeBtn = $(this.attn.options.closeBtn);
                 closeBtn.prependTo(elem);
                 closeBtn.click(function(){
-                    $(elem).trigger('attn.itemclose');
+                    $(elem).trigger('attn.dismiss');
                 })
             }
             
             if(this.options.fade != null && typeof this.options.fade == 'number'){
                 var self = this;
                 setTimeout(function(){
-                    self.element.trigger('attn.itemclose');
+                    self.element.trigger('attn.dismiss');
                 }, this.options.fade)
             }
             return elem;

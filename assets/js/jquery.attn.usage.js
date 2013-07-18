@@ -17,8 +17,15 @@ jQuery(function($){
     
     $('body').attn('warning', {
         message: 'See what happens when you close me.',
-        onClose: function(){
-            alert('Tada! This is kind of lame. But you can actually do whatever you want here!');
+        onBeforeClose: function(event){
+            var prompt = confirm('Tada! This is kind of lame. But you can actually do whatever you want here!\n\nPress OK to continue removal of attention item. Click Cancel to skip.');
+            if(!prompt){
+                event.preventDefault();
+            }
+        },
+        onAfterClose: function(){
+            $('body').attn('clear');
+            $('body').attn('success', '<strong><em>Alors, au revoir!</em></strong>');
         }
     });
 });

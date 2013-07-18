@@ -1,7 +1,9 @@
 
 jQuery(function($){
     
-    $('body').attn({});
+    $('body').attn({
+        container: '#attn-container'
+    });
     
     $('body').attn('success', 'Success message');
     $('body').attn('error', 'Error message - Will fade out in 3 seconds', 3000);

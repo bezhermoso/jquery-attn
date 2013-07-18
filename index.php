@@ -7,8 +7,17 @@
         <script src="assets/js/jquery.attn.js"></script>
         <script src="assets/js/jquery.attn.usage.js"></script>
         <link rel="stylesheet" href="assets/css/attn.css" type="text/css" />
+        <link rel="stylesheet" href="assets/css/bootstrap.css" type="text/css" />
+        <style>
+            body
+            {
+                padding-top: 20px;
+            }
+        </style>
     </head>
     <body>
-        
+        <div class="container">
+            <ul id="attn-container" class="unstyled"></ul>
+        </div>
     </body>
 </html>

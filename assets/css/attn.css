@@ -8,8 +8,11 @@
 
 body
 {
-    background-color: #eee;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
 }
+
+/*
 
 ul.attn-container
 {
@@ -17,7 +20,6 @@ ul.attn-container
     margin-left: 0;
     padding-left: 0;
 }
-
 ul.attn-container li.alert
 {
     margin: 3px;
@@ -26,8 +28,9 @@ ul.attn-container li.alert
 
 ul.attn-container li.alert.alert-error
 {
-    background-color: red;
-    color: #fff;
+    background-color: lightcoral;
+    color: maroon;
+    border: 1px solid maroon;
 }
 
 ul.attn-container li.alert.alert-success
@@ -52,4 +55,4 @@ ul.attn-container li.alert a.close
 {
     float: right;
     cursor: pointer;
-}
+}*/

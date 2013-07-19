@@ -19,5 +19,11 @@
         <div class="container">
             <ul id="attn-container" class="unstyled"></ul>
         </div>
+        <div class="hide">
+            <span id="forgot-password-feedback">
+                Invalid credentials. Forgot your password? &nbsp;&nbsp;
+                <button class="btn btn-small btn-danger">Resend</button>
+            </span>
+        </div>
     </body>
 </html>

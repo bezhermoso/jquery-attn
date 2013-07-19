@@ -6,6 +6,19 @@ jQuery(function($){
     });
     
     $('body').attn('success', '<strong>Welcome, stranger!</strong>');
+    
+    $('#show-error-message').click(function(){
+        $('body').attn('error', '<strong>Access unauthorized!</strong>');
+    });
+    
+    $('#show-warning-message').click(function(){
+        $('body').attn('warning', '<strong>Caution:</strong> wet floor.');
+    });
+    
+    $('#show-info-message').click(function(){
+        $('body').attn('info', 'An email has been sent to your email address.');
+    });
+    
 //    
 //    $('body').attn('success', 'Success message');
 //    $('body').attn('error', 'Error message - Will fade out in 3 seconds', 3000);

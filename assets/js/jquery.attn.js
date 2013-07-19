@@ -24,6 +24,7 @@
     
     $.attn.itemDefaults = {
         message: '',
+        target: null,
         classes: '',
         onClose: $.noop,
         onLoad: $.noop,
@@ -190,11 +191,20 @@
         this.attn = attn;
         
         this.toHtmlElement = function(){
+            
             var elem = $('<li />');
             this.element = elem;
             
             elem.addClass(this.options.classes + ' ' + this.options.commonClass);
-            elem.html(this.options.message);
+            
+            var content = this.options.message;
+            
+            if($.trim(this.options.target)){
+                content = $(this.options.target).clone(true);
+            }
+            
+            elem.html(content);
+            
             if(this.attn.options.closeBtn){
                 var closeBtn = $(this.attn.options.closeBtn);
                 closeBtn.prependTo(elem);

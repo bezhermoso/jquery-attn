@@ -231,8 +231,8 @@
             this.options.onBeforeClose.apply(this, [event]);
             if(!event.isDefaultPrevented()){
                 
-                if(this.container)
-                    $(this.container).trigger(event);
+                if(this.content)
+                    $(this.content).trigger(event);
                 
                 $(this.element).fadeOut('fast', function(){
                     self.remove();
@@ -243,8 +243,8 @@
         
         this.remove = function(event){
             
-            if(this.container)
-                    $(this.container).trigger(event);
+            if(this.content)
+                    $(this.content).trigger(event);
                 
             $(this.element).remove();
         }

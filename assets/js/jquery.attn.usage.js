@@ -28,5 +28,16 @@ jQuery(function($){
             $('body').attn('success', '<strong><em>Alors, au revoir!</em></strong>');
         }
     });
+    
+    var forgotPassItem = $('body').attn('error', {
+        target: '#forgot-password-feedback',
+        classes: 'alert-error alert-block'
+    });
+    
+    $('#forgot-password-feedback button').click(function(){
+        forgotPassItem.dismiss();
+        $('body').attn('success', 'A password reset link was sent to your email address.');
+    });
+    
 });
 

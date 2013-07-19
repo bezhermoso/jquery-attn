@@ -159,7 +159,7 @@
         
         this.addItem = function(item){
             var itemElem = item.toHtmlElement();
-            itemElem.appendTo(this.options.container);
+            itemElem.prependTo(this.options.container);
             var event = jQuery.Event('attn.show');
             itemElem.trigger(event);
             itemElem.data('attnItem', item);
@@ -170,13 +170,9 @@
         this._bindItemEvents = function(item){
             var self = this;
             $(item).bind('attn.dismiss', function(event){
-                
                 var elem = this;
                 var attnItem = $(elem).data('attnItem');
-                
-                attnItem.close(event);
-                
-                
+                attnItem.dismiss(event);
             }).bind('attn.remove', function(event){
                 var attnItem = $(this).data('attnItem');
                 attnItem.remove(event);
@@ -226,13 +222,16 @@
             return elem;
         };
         
-        this.close = function(event){
+        this.dismiss = function(event){
+           
+            event = event ? event : jQuery.Event('attn.dismiss');
             var self = this;
             this.options.onBeforeClose.apply(this, [event]);
+            
             if(!event.isDefaultPrevented()){
                 
-                if(this.content)
-                    $(this.content).trigger(event);
+                //if(this.content)
+                  //  $(this.content).trigger(event);
                 
                 $(this.element).fadeOut('fast', function(){
                     self.remove();
@@ -242,10 +241,9 @@
         };
         
         this.remove = function(event){
-            
-            if(this.content)
-                    $(this.content).trigger(event);
-                
+            event = event ? event : jQuery.Event('attn.remove');
+            //if(this.content)
+              //      $(this.content).trigger(event);
             $(this.element).remove();
         }
     };

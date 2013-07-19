@@ -173,7 +173,9 @@
                 
                 var elem = this;
                 var attnItem = $(elem).data('attnItem');
+                
                 attnItem.close(event);
+                
                 
             }).bind('attn.remove', function(event){
                 var attnItem = $(this).data('attnItem');
@@ -189,6 +191,7 @@
         this.options = options;
         this.element = null;
         this.attn = attn;
+        this.content = null;
         
         this.toHtmlElement = function(){
             
@@ -201,6 +204,7 @@
             
             if($.trim(this.options.target)){
                 content = $(this.options.target).clone(true);
+                this.content = content;
             }
             
             elem.html(content);
@@ -226,6 +230,10 @@
             var self = this;
             this.options.onBeforeClose.apply(this, [event]);
             if(!event.isDefaultPrevented()){
+                
+                if(this.container)
+                    $(this.container).trigger(event);
+                
                 $(this.element).fadeOut('fast', function(){
                     self.remove();
                     self.options.onAfterClose.apply(self, [event]);
@@ -233,7 +241,11 @@
             }
         };
         
-        this.remove = function(){
+        this.remove = function(event){
+            
+            if(this.container)
+                    $(this.container).trigger(event);
+                
             $(this.element).remove();
         }
     };

@@ -26,49 +26,143 @@
             </div>
         </div>
         <div class="container">
-            <ul id="attn-container" class="unstyled"></ul>
-            <p>
-                The notification message you see above is produced by the <code>jquery-attn.js</code> plugin.
-                <pre class="prettyprint lang-js linenums">
-     
-    //Initialize a notification area for the 'body'. Messages will appear within &lt;ul id="attn-container"&gt;...&lt;/ul&gt;
-    $('body').attn({
-        container: '#attn-container'
-    });
+            <div class="row">
+                <div class="span12">
+                    <ul id="attn-container" class="unstyled"></ul>
+                    <p>
+                        The notification message you see above is produced by the <code>jquery-attn.js</code> plugin. No need to code the mark-up.
+                        <pre class="prettyprint lang-js linenums">
 
-    //Add a success message to the notification area attached to 'body'.
-    $('body').attn('success', '&lt;strong&gt;Welcome, stranger!&lt;/strong&gt;');
-                </pre>
-            </p>
-            <p>
-                Of course you are not limited to delivering just good news to your users (the world ain't perfect).
-                You can show 
-                <a href="javascript:void(0);" id="show-error-message">error messages</a>, 
-                <a href="javascript:void(0);" id="show-warning-message">warning messages</a>, and 
-                <a href="javascript:void(0);" id="show-info-message"> info messages</a>, too.
-                <pre class="prettyprint lang-js linenums">
-    
-    $('body').attn('error', '...'); //Displays an error message.
-    
-    $('body').attn('warning', '...'); //Displays a warning message.
+            //Initialize a notification area for the 'body'. Messages will appear within &lt;ul id="attn-container"&gt;...&lt;/ul&gt;
+            $('body').attn({
+                container: '#attn-container'
+            });
 
-    $('body').attn('info', '...'); //Displays an info message.
-                </pre>
-            </p>
-            <div id="try-fade-block">
-                <ul id="try-fade-attn-container" class="unstyled"></ul>
-                <p>
-                    You can also have messages that will fade-out after a specified period. <a href="javascript:void(0);" id="try-fade">Try it!</a>            
-                </p>
-                <p>
-                    The How:
-                </p>
-                <pre class="prettyprint lang-js linenums">
+            //Add a success message to the notification area attached to 'body'.
+            $('body').attn('success', '&lt;strong&gt;Welcome, stranger!&lt;/strong&gt;');
+                        </pre>
+                    </p>
+                    <p>
+                        Of course you are not limited to delivering just good news to your users (the world ain't perfect).
+                        You can show 
+                        <a href="javascript:void(0);" id="show-error-message">error messages</a>, 
+                        <a href="javascript:void(0);" id="show-warning-message">warning messages</a>, and 
+                        <a href="javascript:void(0);" id="show-info-message"> info messages</a>, too.
+                        <pre class="prettyprint lang-js linenums">
 
-   $('body').attn('error', 'Your message here.', 3000); //Provide duration in milliseconds as the third parameter.
-                </pre>
+            $('body').attn('error', '...'); //Displays an error message.
+
+            $('body').attn('warning', '...'); //Displays a warning message.
+
+            $('body').attn('info', '...'); //Displays an info message.
+                        </pre>
+                    </p>
+                    <div id="try-fade-block">
+                        <ul id="try-fade-attn-container" class="unstyled"></ul>
+                        <p>
+                            You can also have messages that will fade-out after a specified period. <a href="javascript:void(0);" id="try-fade">Try it!</a>            
+                        </p>
+                        <p>
+                            The How:
+                        </p>
+                        <pre class="prettyprint lang-js linenums">
+
+           $('body').attn('error', 'Your message here.', 3000); //Provide duration in milliseconds as the third parameter.
+                        </pre>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span12">
+                    <legend>
+                        <h2>Options</h2>
+                    </legend>
+                    <h3>Container</h3>
+                    <p class="">
+                        These options must be set during initialization.
+                    </p>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Option</th>
+                                <th>Default</th>
+                                <th style="width: 50%;">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>container</td>
+                                <td><code>"#attn-container"</code></td>
+                                <td>
+                                    Selector of <code>&lt;ul&gt;...&lt;/ul&gt;</code> within the main selector. Messages will be appended to the target list.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>closeBtn</td>
+                                <td><code>"&lt;a class="close"&gt;&amp;times;&lt;/a&gt;"</code></td>
+                                <td>
+                                    HTML mark-up of close button.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>---</td>
+                                <td>---</td>
+                                <td>
+                                    <em>More to come.</em>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h3>Messages</h3>
+                    <p class="">
+                        These options can be defined to <code>.attn()</code> right after the <strong>message type</strong>.
+                        
+                        (Message types supported out-of-the-box are <code>success</code>, <code>error</code>, <code>info</code>, and <code>warning</code>. Adding of custom message types will be supported soon).
+                    </p>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Option</th>
+                                <th>Default</th>
+                                <th style="width: 50%;">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>message</td>
+                                <td><code>""</code></td>
+                                <td>
+                                    The message content.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>fade</td>
+                                <td><code>null</code></td>
+                                <td>
+                                    If specified, the duration until the message fades out. This unit is in <em>milliseconds</em> (i.e, 1 second == <code>1000</code>; 42 seconds == <code>42000</code>).
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>onClose</td>
+                                <td><code>$.noop</code> (Callback function)</td>
+                                <td>
+                                    Executed when the feedback-message is dismissed.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>---</td>
+                                <td>---</td>
+                                <td>
+                                    <em>More to come.</em>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
+        
         <div class="hide">
             <span id="forgot-password-feedback">
                 Invalid credentials. Forgot your password? &nbsp;&nbsp;

@@ -19,6 +19,13 @@ jQuery(function($){
         $('body').attn('info', 'An email has been sent to your email address.');
     });
     
+    $('#try-fade-block').attn({
+        container: '#try-fade-attn-container'
+    });
+    
+    $('#try-fade').click(function(){
+        $('#try-fade-block').attn('error', '<strong>Watch out!</strong> -- This be gone in 3 seconds.', 3000);
+    });
 //    
 //    $('body').attn('success', 'Success message');
 //    $('body').attn('error', 'Error message - Will fade out in 3 seconds', 3000);

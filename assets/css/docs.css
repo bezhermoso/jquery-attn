@@ -1,0 +1,16 @@
+
+.lead-block
+{
+    background-color: #222;
+    color: #fff;
+}
+
+.lead-block .hero-unit
+{
+    background-color: transparent;
+}
+
+.lead-block .hero-unit h1
+{
+    margin-bottom: 20px;
+}

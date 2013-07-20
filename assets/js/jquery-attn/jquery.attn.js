@@ -25,7 +25,6 @@
     
     $.attn.defaults = {
         container: '#attn-container',
-        closeBtn: '<a class="close">&times;</a>',
         itemTypes: {
             success: {
                 classes: 'alert-success'
@@ -51,7 +50,8 @@
         fade: null,
         onBeforeClose: $.noop,
         onAfterClose: $.noop,
-        commonClass: 'alert'
+        commonClass: 'alert',
+        closeBtn: '<a class="close">&times;</a>'
     };
     
     var Attn = function(element, options)
@@ -225,8 +225,8 @@
             
             elem.html(content);
             
-            if(this.attn.options.closeBtn){
-                var closeBtn = $(this.attn.options.closeBtn);
+            if(this.options.closeBtn){
+                var closeBtn = $(this.options.closeBtn);
                 closeBtn.prependTo(elem);
                 closeBtn.click(function(){
                     $(elem).trigger('attn.dismiss');

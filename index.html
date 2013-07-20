@@ -26,50 +26,6 @@
             </div>
         </div>
         <div class="container">
-<<<<<<< HEAD
-            <ul id="attn-container" class="unstyled"></ul>
-            <p>
-                The notification message you see above is produced by the <code>jquery-attn.js</code> plugin.
-                <pre class="prettyprint lang-js linenums">
-     
-    //Initialize a notification area for the 'body'. Messages will appear within &lt;ul id="attn-container"&gt;...&lt;/ul&gt;
-    $('body').attn({
-        container: '#attn-container'
-    });
-
-    //Add a success message to the notification area attached to 'body'.
-    $('body').attn('success', '&lt;strong&gt;Welcome, stranger!&lt;/strong&gt;');
-                </pre>
-            </p>
-            <p>
-                Of course you are not limited to delivering just good news to your users (the world ain't perfect).
-                You can show 
-                <a href="javascript:void(0);" id="show-error-message">error messages</a>, 
-                <a href="javascript:void(0);" id="show-warning-message">warning messages</a>, and 
-                <a href="javascript:void(0);" id="show-info-message"> info messages</a>, too.
-                <pre class="prettyprint lang-js linenums">
-    
-    $('body').attn('error', '...'); //Displays an error message.
-    
-    $('body').attn('warning', '...'); //Displays a warning message.
-
-    $('body').attn('info', '...'); //Displays an info message.
-                </pre>
-            </p>
-            <div id="try-fade-block">
-                <ul id="try-fade-attn-container" class="unstyled"></ul>
-                <p>
-                    You can also have messages that will fade-out after a specified period. <a href="javascript:void(0);" id="try-fade">Try it!</a>            
-                </p>
-                <p>
-                    The How:
-                </p>
-                <pre class="prettyprint lang-js linenums">
-
-   $('body').attn('error', 'Your message here.', 3000); //Provide duration in milliseconds as the third parameter.
-                </pre>
-            </div>
-        </div>
             <div class="row">
                 <div class="span12">
                     <ul id="attn-container" class="unstyled"></ul>
@@ -191,7 +147,29 @@
                                 <td>onClose</td>
                                 <td><code>$.noop</code> (Callback function)</td>
                                 <td>
-                                    Executed when the feedback-message is dismissed.
+                                    Executed when the message is removed from the DOM.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>onBeforeClose</td>
+                                <td><code>$.noop</code> (Callback function)</td>
+                                <td>
+                                    <p>
+                                        Executed right before the message is removed from the DOM.
+                                    </p>
+                                    <p>
+                                        Argument(s) passed:
+                                    </p>
+                                    <ol>
+                                        <li>
+                                            <code>jQuery.Event</code> object. 
+                                            Removal of the message can be stopped by calling 
+                                            <code>event.preventDefault()</code> within this callback.
+                                        </li>
+                                    </ol>
+                                    <p>
+                                        <code>this</code> context is the <code>AttnItem</code> instance for the message created.
+                                    </p>
                                 </td>
                             </tr>
                             <tr>
@@ -206,7 +184,6 @@
                 </div>
             </div>
         </div>
-        
         <div class="hide">
             <span id="forgot-password-feedback">
                 Invalid credentials. Forgot your password? &nbsp;&nbsp;

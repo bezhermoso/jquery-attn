@@ -25,7 +25,6 @@
     
     $.attn.defaults = {
         container: '#attn-container',
-        closeBtn: '<a class="close">&times;</a>',
         itemTypes: {
             success: {
                 classes: 'alert-success'
@@ -48,10 +47,11 @@
         classes: '',
         onClose: $.noop,
         onLoad: $.noop,
-        fade: null,
+        fadeOut: null,
         onBeforeClose: $.noop,
         onAfterClose: $.noop,
-        commonClass: 'alert'
+        commonClass: 'alert',
+        closeBtn: '<a class="close">&times;</a>'
     };
     
     var Attn = function(element, options)
@@ -137,7 +137,7 @@
             
             if(args.length > 0){
                 
-                       var fade = null;
+                       var fadeOut = null;
                        var onClose = null;
                        var message = null;
                        var tmpOptions = {};
@@ -146,7 +146,7 @@
                            
                            switch(typeof arg){
                                case "number":
-                                   fade = arg;
+                                   fadeOut = arg;
                                    break;
                                case "function":
                                    onClose = arg;
@@ -159,7 +159,7 @@
                            }
                        });
                        
-                       if(fade !== null) tmpOptions.fade = fade;
+                       if(fadeOut !== null) tmpOptions.fadeOut = fadeOut;
                        if(onClose !== null) tmpOptions.onClose = onClose;
                        if(message !== null) tmpOptions.message = message;
                        
@@ -225,19 +225,19 @@
             
             elem.html(content);
             
-            if(this.attn.options.closeBtn){
-                var closeBtn = $(this.attn.options.closeBtn);
+            if(this.options.closeBtn){
+                var closeBtn = $(this.options.closeBtn);
                 closeBtn.prependTo(elem);
                 closeBtn.click(function(){
                     $(elem).trigger('attn.dismiss');
                 })
             }
             
-            if(this.options.fade != null && typeof this.options.fade == 'number'){
+            if(this.options.fadeOut != null && typeof this.options.fadeOut == 'number'){
                 var self = this;
                 setTimeout(function(){
                     self.element.trigger('attn.dismiss');
-                }, this.options.fade)
+                }, this.options.fadeOut)
             }
             return elem;
         };

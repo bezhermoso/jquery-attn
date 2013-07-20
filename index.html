@@ -68,7 +68,7 @@
                         </p>
                         <pre class="prettyprint lang-js linenums">
 
-           $('body').attn('error', 'Your message here.', 3000); //Provide duration in milliseconds as the third parameter.
+           $('body').attn('error', 'Your message here.', 3000); //Fade out in 3000 ms (3 seconds).
                         </pre>
                     </div>
                 </div>
@@ -76,26 +76,28 @@
             <div class="row">
                 <div class="span12">
                     <legend>
-                        <h2>Options</h2>
+                        <h2>Configuration & Options</h2>
                     </legend>
-                    <h3>Container</h3>
-                    <p class="">
-                        These options must be set during initialization.
-                    </p>
+                    <h3>Initialization / Constructor</h3>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>Option</th>
-                                <th>Default</th>
+                                <th>Type</th>
                                 <th style="width: 50%;">Description</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>container</td>
-                                <td><code>"#attn-container"</code></td>
+                                <td>string or a jQuery object</td>
                                 <td>
-                                    Selector of <code>&lt;ul&gt;...&lt;/ul&gt;</code> within the main selector. Messages will be appended to the target list.
+                                    <p>
+                                        Selector of a <code>&lt;ul&gt;...&lt;/ul&gt;</code> within the main selector. Messages will be appended to the target list.
+                                    </p>
+                                    <p>
+                                        <strong>Default:</strong> <code>'#attn-container'</code>
+                                    </p>
                                 </td>
                             </tr>
                             <tr>
@@ -117,14 +119,14 @@
                         <thead>
                             <tr>
                                 <th>Option</th>
-                                <th>Default</th>
+                                <th>Type</th>
                                 <th style="width: 50%;">Description</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>message</td>
-                                <td><code>""</code></td>
+                                <td>string</td>
                                 <td>
                                     The message content.
                                 </td>
@@ -132,15 +134,19 @@
                             
                             <tr>
                                 <td>closeBtn</td>
-                                <td><code>"&lt;a class="close"&gt;&amp;times;&lt;/a&gt;"</code></td>
+                                <td>string</td>
                                 <td>
-                                    HTML mark-up of close button.
+                                    HTML mark-up of the close button.
+                                    <!--<p>
+                                        <strong>Default:</strong>
+                                         <code>"&lt;a class="close"&gt;&amp;times;&lt;/a&gt;"</code>
+                                    </p>-->
                                 </td>
                             </tr>
                             
                             <tr>
                                 <td>fadeOut</td>
-                                <td><code>null</code></td>
+                                <td>integer</td>
                                 <td>
                                     If specified, the duration until the message fades out. This unit is in <em>milliseconds</em> (i.e, 1 second == <code>1000</code>; 42 seconds == <code>42000</code>).
                                 </td>
@@ -148,14 +154,14 @@
                             
                             <tr>
                                 <td>onClose</td>
-                                <td><code>$.noop</code> (Callback function)</td>
+                                <td>function</td>
                                 <td>
                                     Executed when the message is removed from the DOM.
                                 </td>
                             </tr>
                             <tr>
                                 <td>onBeforeClose</td>
-                                <td><code>$.noop</code> (Callback function)</td>
+                                <td>function</td>
                                 <td>
                                     <p>
                                         Executed right before the message is removed from the DOM.
@@ -171,7 +177,7 @@
                                         </li>
                                     </ol>
                                     <p>
-                                        <code>this</code> context is the <code>AttnItem</code> instance for the message created.
+                                        <code>this</code> context is the <code>AttnMsg</code> instance for the message created.
                                     </p>
                                 </td>
                             </tr>

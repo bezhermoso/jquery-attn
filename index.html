@@ -135,34 +135,7 @@
                         </tbody>
                     </table>
                     <h3 id="messages-header">Messages</h3>
-                    <p class="">
-                        These options can be passed to <code>.attn()</code> as second parameter, right after the <strong>message type</strong>.
-                        
-                        Message types supported out-of-the-box are <code>success</code>, <code>error</code>, <code>info</code>, and <code>warning</code>.
-                    </p>
-                    <p>
-                        Example:
-                    </p>
-                    <pre class="prettyprint lang-js linenums">
-
-    $('body').attn('success', { 
-        /* Options here */ 
-    });
-                    </pre>
-                    <p>
-                        Same options are used when defining message types during initialization.
-                    </p>
-                    <pre class="prettyprint lang-js linenums">
-
-    $('body').attn({
-        container: '#attn-container',
-        msgTypes: {
-            success: {
-                fadeOut: 5000 //Success messages will fade out in 5 seconds.
-            }
-        }
-    });
-                    </pre>
+                    
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -246,6 +219,34 @@
                             </tr>
                         </tbody>
                     </table>
+                    <p class="">
+                        These options can be passed to <code>.attn()</code> as second parameter, right after the <strong>message type</strong>.
+                        
+                        Message types supported out-of-the-box are <code>success</code>, <code>error</code>, <code>info</code>, and <code>warning</code>.
+                    </p>
+                    <p>
+                        Example:
+                    </p>
+                    <pre class="prettyprint lang-js linenums">
+
+    $('body').attn('success', { 
+        /* Options here */ 
+    });
+                    </pre>
+                    <p>
+                        Same options are used when defining message types during initialization.
+                    </p>
+                    <pre class="prettyprint lang-js linenums">
+
+    $('body').attn({
+        container: '#attn-container',
+        msgTypes: {
+            success: {
+                fadeOut: 5000 //Success messages will fade out in 5 seconds.
+            }
+        }
+    });
+                    </pre>
                     <h3 id="attn-header">
                         <span class="text-error">Attn</span> 
                         API documentation

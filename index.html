@@ -34,7 +34,7 @@
                         The notification message you see above is produced by the <code>jquery-attn.js</code> plugin. No need to code the mark-up.
                         <pre class="prettyprint lang-js linenums">
 
-    //Initialize a notification area for the 'body'. Messages will appear within &lt;ul id="attn-container"&gt;...&lt;/ul&gt;
+        //Initialize a notification area for the 'body'. Messages will appear within &lt;ul id="attn-container"&gt;...&lt;/ul&gt;
         $('body').attn({
             container: '#attn-container'
         });
@@ -132,8 +132,31 @@
                     <p class="">
                         These options can be passed to <code>.attn()</code> as second parameter, right after the <strong>message type</strong>.
                         
-                        (Message types supported out-of-the-box are <code>success</code>, <code>error</code>, <code>info</code>, and <code>warning</code>. Adding of custom message types will be supported soon).
+                        Message types supported out-of-the-box are <code>success</code>, <code>error</code>, <code>info</code>, and <code>warning</code>.
                     </p>
+                    <p>
+                        Example:
+                    </p>
+                    <pre class="prettyprint lang-js linenums">
+
+    $('body').attn('success', { 
+        /* Options here */ 
+    });
+                    </pre>
+                    <p>
+                        Same options are used when defining message types during initialization.
+                    </p>
+                    <pre class="prettyprint lang-js linenums">
+
+    $('body').attn({
+        container: '#attn-container',
+        msgTypes: {
+            success: {
+                fadeOut: 5000 //Success messages will fade out in 5 seconds.
+            }
+        }
+    });
+                    </pre>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -202,7 +225,7 @@
                                         </li>
                                     </ol>
                                     <p>
-                                        <code>this</code> context is the <code>AttnMsg</code> instance for the message created.
+                                        <code>this</code> context is the <a href="#">AttnMsg</a> instance for the message created.
                                     </p>
                                 </td>
                             </tr>

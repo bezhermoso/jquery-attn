@@ -14,3 +14,9 @@
 {
     margin-bottom: 20px;
 }
+
+ol.linenums
+{
+    padding: 0 0 0 40px;
+    margin: auto;
+}

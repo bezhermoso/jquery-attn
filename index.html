@@ -26,6 +26,7 @@
                 <a class="btn" href="https://github.com/bezhermoso/jquery-attn">
                     <img src="assets/img/github-icon.png" /> <strong>Get from GitHub!</strong>
                 </a>
+                
             </div>
         </div>
         <div class="container">
@@ -36,13 +37,13 @@
                         The notification message you see above is produced by the <code>jquery-attn.js</code> plugin. No need to code the mark-up.
                         <pre class="prettyprint lang-js linenums">
 
-            //Initialize a notification area for the 'body'. Messages will appear within &lt;ul id="attn-container"&gt;...&lt;/ul&gt;
-            $('body').attn({
-                container: '#attn-container'
-            });
+        //Initialize a notification area for the 'body'. Messages will appear within &lt;ul id="attn-container"&gt;...&lt;/ul&gt;
+        $('body').attn({
+            container: '#attn-container'
+        });
 
-            //Add a success message to the notification area attached to 'body'.
-            $('body').attn('success', '&lt;strong&gt;Welcome, stranger!&lt;/strong&gt;');
+        //Add a success message to the notification area attached to 'body'.
+        $('body').attn('success', '&lt;strong&gt;Welcome, stranger!&lt;/strong&gt;');
                         </pre>
                     </p>
                     <p>
@@ -53,11 +54,11 @@
                         <a href="javascript:void(0);" id="show-info-message"> info messages</a>, too.
                         <pre class="prettyprint lang-js linenums">
 
-            $('body').attn('error', '...'); //Displays an error message.
+        $('body').attn('error', '...'); //Displays an error message.
 
-            $('body').attn('warning', '...'); //Displays a warning message.
+        $('body').attn('warning', '...'); //Displays a warning message.
 
-            $('body').attn('info', '...'); //Displays an info message.
+        $('body').attn('info', '...'); //Displays an info message.
                         </pre>
                     </p>
                     <div id="try-fade-block">
@@ -70,7 +71,7 @@
                         </p>
                         <pre class="prettyprint lang-js linenums">
 
-           $('body').attn('error', 'Your message here.', 3000); //Provide duration in milliseconds as the third parameter.
+        $('body').attn('error', 'Your message here.', 3000); //Fade out in 3000 ms (3 seconds).
                         </pre>
                     </div>
                 </div>
@@ -78,94 +79,232 @@
             <div class="row">
                 <div class="span12">
                     <legend>
-                        <h2>Options</h2>
+                        <h2>Configuration & Options</h2>
                     </legend>
-                    <h3>Container</h3>
-                    <p class="">
-                        These options must be set during initialization.
-                    </p>
-                    <table class="table table-bordered">
+                    <h3>Initialization / Constructor</h3>
+                    <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>Option</th>
-                                <th>Default</th>
+                                <th style="width: 30%;">Option</th>
+                                <th>Type</th>
                                 <th style="width: 50%;">Description</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>container</td>
-                                <td><code>"#attn-container"</code></td>
+                                <td>string or a jQuery object</td>
                                 <td>
-                                    Selector of <code>&lt;ul&gt;...&lt;/ul&gt;</code> within the main selector. Messages will be appended to the target list.
+                                    <p>
+                                        Selector of a <code>&lt;ul&gt;...&lt;/ul&gt;</code> within the main selector. Messages will be appended to the target list.
+                                    </p>
+                                    <p>
+                                        <strong>Default:</strong> <code>'#attn-container'</code>
+                                    </p>
                                 </td>
                             </tr>
                             <tr>
-                                <td>closeBtn</td>
-                                <td><code>"&lt;a class="close"&gt;&amp;times;&lt;/a&gt;"</code></td>
+                                <td>msgTypes</td>
+                                <td>object-literal</td>
                                 <td>
-                                    HTML mark-up of close button.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>---</td>
-                                <td>---</td>
-                                <td>
-                                    <em>More to come.</em>
+                                    Define message types and their corresponding options.
+                                    <p>
+                                        <strong>Default:</strong>
+                                        <pre class="prettyprint linenums lang-js">
+    {
+        success: {
+            classes: 'alert-success'
+        },
+        error: {
+            classes: 'alert-error'
+        },
+        warning: {
+            classes: 'alert-warning'
+        },
+        info: {
+            classes: 'alert-info'
+        }
+    }                                       </pre>  
+                                    </p>
+                                    See <a href="#messages-header">Messages documentation</a> for more options.
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <h3>Messages</h3>
+                    <h3 id="messages-header">Messages</h3>
                     <p class="">
-                        These options can be defined to <code>.attn()</code> right after the <strong>message type</strong>.
+                        These options can be passed to <code>.attn()</code> as second parameter, right after the <strong>message type</strong>.
                         
-                        (Message types supported out-of-the-box are <code>success</code>, <code>error</code>, <code>info</code>, and <code>warning</code>. Adding of custom message types will be supported soon).
+                        Message types supported out-of-the-box are <code>success</code>, <code>error</code>, <code>info</code>, and <code>warning</code>.
                     </p>
-                    <table class="table table-bordered">
+                    <p>
+                        Example:
+                    </p>
+                    <pre class="prettyprint lang-js linenums">
+
+    $('body').attn('success', { 
+        /* Options here */ 
+    });
+                    </pre>
+                    <p>
+                        Same options are used when defining message types during initialization.
+                    </p>
+                    <pre class="prettyprint lang-js linenums">
+
+    $('body').attn({
+        container: '#attn-container',
+        msgTypes: {
+            success: {
+                fadeOut: 5000 //Success messages will fade out in 5 seconds.
+            }
+        }
+    });
+                    </pre>
+                    <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>Option</th>
-                                <th>Default</th>
+                                <th style="width: 30%;">Option</th>
+                                <th>Type</th>
                                 <th style="width: 50%;">Description</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>message</td>
-                                <td><code>""</code></td>
+                                <td>string</td>
                                 <td>
                                     The message content.
                                 </td>
                             </tr>
+                            
                             <tr>
-                                <td>fade</td>
-                                <td><code>null</code></td>
+                                <td>closeBtn</td>
+                                <td>string</td>
                                 <td>
-                                    If specified, the duration until the message fades out. This unit is in <em>milliseconds</em> (i.e, 1 second == <code>1000</code>; 42 seconds == <code>42000</code>).
+                                    HTML mark-up of the close button.
+                                    <!--<p>
+                                        <strong>Default:</strong>
+                                         <code>"&lt;a class="close"&gt;&amp;times;&lt;/a&gt;"</code>
+                                    </p>-->
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>fadeOut</td>
+                                <td>integer</td>
+                                <td>
+                                    <p>
+                                        The duration until the message fades out. This unit is in <em>milliseconds</em>
+                                    </p>
+                                    <p>
+                                        <strong>Default:</strong> 
+                                        <code>null</code> (Do not fade out)
+                                    </p>
                                 </td>
                             </tr>
                             
                             <tr>
                                 <td>onClose</td>
-                                <td><code>$.noop</code> (Callback function)</td>
+                                <td>function</td>
                                 <td>
-                                    Executed when the feedback-message is dismissed.
+                                    Executed when the message is removed from the DOM.
                                 </td>
                             </tr>
                             <tr>
-                                <td>---</td>
-                                <td>---</td>
+                                <td>onBeforeClose</td>
+                                <td>function</td>
                                 <td>
-                                    <em>More to come.</em>
+                                    <p>
+                                        Executed right before the message is removed from the DOM.
+                                    </p>
+                                    <p>
+                                        Argument(s) passed:
+                                    </p>
+                                    <ol>
+                                        <li>
+                                            <code>jQuery.Event</code> object. 
+                                            Removal of the message can be stopped by calling 
+                                            <code>event.preventDefault()</code> within this callback.
+                                        </li>
+                                    </ol>
+                                    <p>
+                                        <code>this</code> context is the <a href="#attnmsg-header">AttnMsg</a> instance for the message created.
+                                    </p>
                                 </td>
+                            </tr>
+                            <tr>
+                                <td>classes</td>
+                                <td>string</td>
+                                <td>
+                                    <p>
+                                        Custom class(es) to add to the message <code>&lt;li&gt;&lt;/li&gt;</code> item.
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h3 id="attnmsg-header">
+                        <span class="text-error">AttnMsg</span>
+                        API documentation
+                    </h3>
+                    <p>
+                        An instance of <code>AttnMsg</code> will be generated and returned whenever a message is added to the container.
+                    </p>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th style="width: 70%;">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    dismiss()
+                                </td>
+                                <td>
+                                    <p>
+                                        Dismisses the message.
+                                    </p>
+                                    <p>
+                                        Calls any <code>onBeforeClose</code> callback.
+                                    </p>
+                                </td>                                
+                            </tr>
+                            <tr>
+                                <td>
+                                    close()
+                                </td>
+                                <td>
+                                    <p>
+                                        Removes the message <strong>without</strong> calling <code>onBeforeClose</code>.
+                                    </p>
+                                    <p>
+                                        Calls any <code>onClose</code> callback.
+                                    </p>
+                                </td>                                
+                            </tr>
+                            <tr>
+                                <td>
+                                    getElement()
+                                </td>
+                                <td>
+                                    Returns the <code>&lt;li&gt;...&lt;/li&gt;</code> element.
+                                </td>                                
+                            </tr>
+                            <tr>
+                                <td>
+                                    getContainer()
+                                </td>
+                                <td>
+                                    Returns the <code>Attn</code> instance of the container where the message is added.
+                                </td>                                
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        
         <div class="hide">
             <span id="forgot-password-feedback">
                 Invalid credentials. Forgot your password? &nbsp;&nbsp;

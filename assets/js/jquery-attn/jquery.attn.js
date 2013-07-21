@@ -209,6 +209,14 @@
         this.attn = attn;
         this.content = null;
         
+        this.getElement = function(){
+            return this.element;
+        };
+        
+        this.getContainer = function(){
+            return this.attn;
+        };
+        
         this.toHtmlElement = function(){
             
             var elem = $('<li />');
@@ -265,7 +273,7 @@
             //if(this.content)
               //      $(this.content).trigger(event);
             $(this.element).remove();
-        }
+        };
     };
     
     

@@ -79,7 +79,7 @@
                         <h2>Configuration & Options</h2>
                     </legend>
                     <h3>Initialization / Constructor</h3>
-                    <table class="table table-bordered">
+                    <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th style="width: 30%;">Option</th>
@@ -123,12 +123,12 @@
         }
     }                                       </pre>  
                                     </p>
-                                    See <a href="#">Messages documentation</a> for more options.
+                                    See <a href="#messages-header">Messages documentation</a> for more options.
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <h3>Messages</h3>
+                    <h3 id="messages-header">Messages</h3>
                     <p class="">
                         These options can be passed to <code>.attn()</code> as second parameter, right after the <strong>message type</strong>.
                         
@@ -157,7 +157,7 @@
         }
     });
                     </pre>
-                    <table class="table table-bordered">
+                    <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th style="width: 30%;">Option</th>
@@ -225,7 +225,7 @@
                                         </li>
                                     </ol>
                                     <p>
-                                        <code>this</code> context is the <a href="#">AttnMsg</a> instance for the message created.
+                                        <code>this</code> context is the <a href="#attnmsg-header">AttnMsg</a> instance for the message created.
                                     </p>
                                 </td>
                             </tr>
@@ -237,6 +237,65 @@
                                         Custom class(es) to add to the message <code>&lt;li&gt;&lt;/li&gt;</code> item.
                                     </p>
                                 </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h3 id="attnmsg-header">
+                        <span class="text-error">AttnMsg</span>
+                        API documentation
+                    </h3>
+                    <p>
+                        An instance of <code>AttnMsg</code> will be generated and returned whenever a message is added to the container.
+                    </p>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th style="width: 70%;">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    dismiss()
+                                </td>
+                                <td>
+                                    <p>
+                                        Dismisses the message.
+                                    </p>
+                                    <p>
+                                        Calls any <code>onBeforeClose</code> callback.
+                                    </p>
+                                </td>                                
+                            </tr>
+                            <tr>
+                                <td>
+                                    close()
+                                </td>
+                                <td>
+                                    <p>
+                                        Removes the message <strong>without</strong> calling <code>onBeforeClose</code>.
+                                    </p>
+                                    <p>
+                                        Calls any <code>onClose</code> callback.
+                                    </p>
+                                </td>                                
+                            </tr>
+                            <tr>
+                                <td>
+                                    getElement()
+                                </td>
+                                <td>
+                                    Returns the <code>&lt;li&gt;...&lt;/li&gt;</code> element.
+                                </td>                                
+                            </tr>
+                            <tr>
+                                <td>
+                                    getContainer()
+                                </td>
+                                <td>
+                                    Returns the <code>Attn</code> instance of the container where the message is added.
+                                </td>                                
                             </tr>
                         </tbody>
                     </table>

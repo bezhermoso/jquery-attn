@@ -289,7 +289,7 @@
             
             var attn = new Attn(elem, method);
             $(elem).data('attnObject', attn);
-            return elem;
+            return attn;
             
         }else if(typeof method == 'string'){
             

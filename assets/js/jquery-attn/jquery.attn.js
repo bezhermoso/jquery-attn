@@ -25,8 +25,7 @@
     
     $.attn.defaults = {
         container: '#attn-container',
-        closeBtn: '<a class="close">&times;</a>',
-        itemTypes: {
+        msgTypes: {
             success: {
                 classes: 'alert-success'
             },
@@ -42,16 +41,17 @@
         }
     };
     
-    $.attn.itemDefaults = {
+    $.attn.msgDefaults = {
         message: '',
         target: null,
         classes: '',
         onClose: $.noop,
         onLoad: $.noop,
-        fade: null,
+        fadeOut: null,
         onBeforeClose: $.noop,
         onAfterClose: $.noop,
-        commonClass: 'alert'
+        commonClass: 'alert',
+        closeBtn: '<a class="close">&times;</a>'
     };
     
     var Attn = function(element, options)
@@ -60,7 +60,7 @@
         
         this.options = {};
         
-        this.items = [];
+        this.msgs = [];
         
         this._init = function(options){
             
@@ -80,10 +80,10 @@
                 attnContainer.prependTo(this.element);
             }
             var self = this;
-            $.each(this.options.itemTypes, function(i, itemOptions){
+            $.each(this.options.msgTypes, function(i, msgOptions){
                 
-                itemOptions = $.extend({}, $.attn.itemDefaults, itemOptions, true);
-                self.options.itemTypes[i] = itemOptions;
+                msgOptions = $.extend({}, $.attn.msgDefaults, msgOptions, true);
+                self.options.msgTypes[i] = msgOptions;
             });
             
             attnContainer.addClass('attn-container');
@@ -99,45 +99,45 @@
             return $(this.element).trigger('attn.clear');
         }
         
-        this.isValidItemType = function(type){
+        this.isValidMsgType = function(type){
             
             var isValid = false;
             
-            $.each(this.options.itemTypes, function(itemType, itemOptions){
-                isValid = isValid || type == itemType;
+            $.each(this.options.msgTypes, function(msgType, msgOptions){
+                isValid = isValid || type == msgType;
             });
             
             return isValid;
         }
         
-        this.getItemTypeOptions = function(itemType, options){
+        this.getMsgTypeOptions = function(msgType, options){
             
-            options.type = itemType;
+            options.type = msgType;
             
-            if(this.options.itemTypes[itemType] != undefined){
+            if(this.options.msgTypes[msgType] != undefined){
                 
-                var itemOptions = this.options.itemTypes[itemType];
+                var msgOptions = this.options.msgTypes[msgType];
                 
                 if(options != undefined){
-                    return $.extend({}, itemOptions, options, true);
+                    return $.extend({}, msgOptions, options, true);
                 }else{
-                    return $.extend({}, itemOptions, true);
+                    return $.extend({}, msgOptions, true);
                 }
                 
             }else{
-                $.error('"' + itemType + '" is not a recognized item type.');
+                $.error('"' + msgType + '" is not a recognized message type.');
                 return false;
             }
             
         };
         
-        this.addItemFacade = function(itemType, args){
+        this.addMsgFacade = function(msgType, args){
             
-            var item;
+            var msg;
             
             if(args.length > 0){
                 
-                       var fade = null;
+                       var fadeOut = null;
                        var onClose = null;
                        var message = null;
                        var tmpOptions = {};
@@ -146,7 +146,7 @@
                            
                            switch(typeof arg){
                                case "number":
-                                   fade = arg;
+                                   fadeOut = arg;
                                    break;
                                case "function":
                                    onClose = arg;
@@ -159,55 +159,63 @@
                            }
                        });
                        
-                       if(fade !== null) tmpOptions.fade = fade;
+                       if(fadeOut !== null) tmpOptions.fadeOut = fadeOut;
                        if(onClose !== null) tmpOptions.onClose = onClose;
                        if(message !== null) tmpOptions.message = message;
                        
-                       var options = this.getItemTypeOptions(itemType, tmpOptions);
+                       var options = this.getMsgTypeOptions(msgType, tmpOptions);
                        
-                       item = new AttnItem(this, options);
+                       msg = new AttnMsg(this, options);
                        
             }
             
-            if(item){
-                return this.addItem(item);
+            if(msg){
+                return this.addMsg(msg);
             }else{
                 return this;
             }
             
         }
         
-        this.addItem = function(item){
-            var itemElem = item.toHtmlElement();
-            itemElem.prependTo(this.options.container);
+        this.addMsg = function(msg){
+            var msgElem = msg.toHtmlElement();
+            msgElem.prependTo(this.options.container);
             var event = jQuery.Event('attn.show');
-            itemElem.trigger(event);
-            itemElem.data('attnItem', item);
-            this._bindItemEvents(itemElem);
-            return item;
+            msgElem.trigger(event);
+            msgElem.data('attnMsg', msg);
+            this._bindMsgEvents(msgElem);
+            return msg;
         }
         
-        this._bindItemEvents = function(item){
+        this._bindMsgEvents = function(msg){
             var self = this;
-            $(item).bind('attn.dismiss', function(event){
+            $(msg).bind('attn.dismiss', function(event){
                 var elem = this;
-                var attnItem = $(elem).data('attnItem');
-                attnItem.dismiss(event);
+                var attnMsg = $(elem).data('attnMsg');
+                attnMsg.dismiss(event);
             }).bind('attn.remove', function(event){
-                var attnItem = $(this).data('attnItem');
-                attnItem.remove(event);
+                var attnMsg = $(this).data('attnMsg');
+                attnMsg.remove(event);
             });
         }
         
         this._init(options);
     }
     
-    var AttnItem = function(attn, options){
+    var AttnMsg = function(attn, options){
         
         this.options = options;
         this.element = null;
         this.attn = attn;
         this.content = null;
+        
+        this.getElement = function(){
+            return this.element;
+        };
+        
+        this.getContainer = function(){
+            return this.attn;
+        };
         
         this.toHtmlElement = function(){
             
@@ -225,19 +233,19 @@
             
             elem.html(content);
             
-            if(this.attn.options.closeBtn){
-                var closeBtn = $(this.attn.options.closeBtn);
+            if(this.options.closeBtn){
+                var closeBtn = $(this.options.closeBtn);
                 closeBtn.prependTo(elem);
                 closeBtn.click(function(){
                     $(elem).trigger('attn.dismiss');
                 })
             }
             
-            if(this.options.fade != null && typeof this.options.fade == 'number'){
+            if(this.options.fadeOut != null && typeof this.options.fadeOut == 'number'){
                 var self = this;
                 setTimeout(function(){
                     self.element.trigger('attn.dismiss');
-                }, this.options.fade)
+                }, this.options.fadeOut)
             }
             return elem;
         };
@@ -265,7 +273,7 @@
             //if(this.content)
               //      $(this.content).trigger(event);
             $(this.element).remove();
-        }
+        };
     };
     
     
@@ -281,7 +289,7 @@
             
             var attn = new Attn(elem, method);
             $(elem).data('attnObject', attn);
-            return elem;
+            return attn;
             
         }else if(typeof method == 'string'){
             
@@ -297,9 +305,9 @@
                                     Array.prototype.slice.call(arguments, 1)
                                 );
                     }
-                }else if(attn.isValidItemType(method)){
+                }else if(attn.isValidMsgType(method)){
                     
-                    return attn.addItemFacade
+                    return attn.addMsgFacade
                             .call(
                                 attn,
                                 method,

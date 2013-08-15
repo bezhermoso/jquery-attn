@@ -6,7 +6,7 @@
         <meta name="keywords" content="jquery-attn jquery-attention jquery-attn.js jQuery Attention plugins feedback notification bezhermoso"/>
         <meta name="author" content="Bezalel Hermoso"/>
         <title>jquery-attn.js</title>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="assets/js/jquery.min.js"></script>
         <script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
         <script src="assets/js/jquery-attn/jquery.attn.js"></script>
         <script src="assets/js/jquery.attn.usage.js"></script>
@@ -29,6 +29,16 @@
             </div>
         </div>
         <div class="container">
+            <div class="hide">
+                <div id="custom-attn">
+                    Are you sure you want to continue?
+                    <div style="margin-top: 10px;">
+                        <button class="btn btn-danger">Yes, I am sure.</button>
+                        &nbsp;&nbsp;
+                        <button class="btn">No, nevermind.</button>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="span12">
                     <ul id="attn-container" class="unstyled"></ul>

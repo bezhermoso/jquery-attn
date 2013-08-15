@@ -26,6 +26,13 @@ jQuery(function($){
     $('#try-fade').click(function(){
         $('#try-fade-block').attn('error', '<strong>Watch out!</strong> -- This be gone in 3 seconds.', 3000);
     });
+    
+    $('body').attn('error', {
+        target: $('#custom-attn'),
+        onShow: function(){
+            
+        }
+    })
 //    
 //    $('body').attn('success', 'Success message');
 //    $('body').attn('error', 'Error message - Will fade out in 3 seconds', 3000);

@@ -26,6 +26,28 @@ jQuery(function($){
     $('#try-fade').click(function(){
         $('#try-fade-block').attn('error', '<strong>Watch out!</strong> -- This be gone in 3 seconds.', 3000);
     });
+    
+    $('#custom-block').attn({
+        container: '#custom-block-attn-container',
+    })
+    
+    $('.remove-user').click(function(){
+        var btn = this;
+        $('#custom-block').attn('error', {
+           target: $('#custom-block-attn-item'),
+           classes: 'alert-error alert-block',
+           onShow: function(){
+               var msg = this;
+               var elem = this.element;
+               $('button', elem).click(function(){
+                   msg.dismiss();
+                   if($(this).hasClass('btn-danger')){
+                        $(btn).parents('tr').remove();
+                   }
+               });
+           }
+        });
+    });
 //    
 //    $('body').attn('success', 'Success message');
 //    $('body').attn('error', 'Error message - Will fade out in 3 seconds', 3000);

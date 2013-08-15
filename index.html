@@ -6,7 +6,7 @@
         <meta name="keywords" content="jquery-attn jquery-attention jquery-attn.js jQuery Attention plugins feedback notification bezhermoso"/>
         <meta name="author" content="Bezalel Hermoso"/>
         <title>jquery-attn.js</title>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="assets/js/jquery.min.js"></script>
         <script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
         <script src="assets/js/jquery-attn/jquery.attn.js"></script>
         <script src="assets/js/jquery.attn.usage.js"></script>
@@ -32,6 +32,7 @@
         <div class="container">
             <div class="row">
                 <div class="span12">
+                    <h2>Basic Usage</h2>
                     <ul id="attn-container" class="unstyled"></ul>
                     <p>
                         The notification message you see above is produced by the <code>jquery-attn.js</code> plugin. No need to code the mark-up.
@@ -62,6 +63,7 @@
                         </pre>
                     </p>
                     <div id="try-fade-block">
+                        <h2>Fade-out</h2>
                         <ul id="try-fade-attn-container" class="unstyled"></ul>
                         <p>
                             You can also have messages that will fade-out after a specified period. <a href="javascript:void(0);" id="try-fade">Try it!</a>            
@@ -73,6 +75,47 @@
 
         $('body').attn('error', 'Your message here.', 3000); //Fade out in 3000 ms (3 seconds).
                         </pre>
+                    </div>
+                    <div id="custom-block">
+                        <h2>Custom Messages</h2>
+                        <ul id="custom-block-attn-container" class="unstyled"></ul>
+                        <p>
+                           You can also have messages which contain your own custom content/mark-up. Use the <code>onShow</code> hook to specify your own callback which is called after the message is attached to the container.
+                        </p>
+                        <div class="hide">
+                            <div id="custom-block-attn-item">
+                                Are you sure you want to permanently remove this user?
+                                <div style="margin-top: 20px;">
+                                    <button class="btn btn-danger">Yes, I am sure.</button>&nbsp;
+                                    <button class="btn">No, nevermind.</button>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Company</th>
+                                    <th style="width: 100px;">&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>John Doe</td>
+                                    <td>CIA</td>
+                                    <td>
+                                        <a href="javascript:void(0);" class="btn remove-user">Remove</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Crazy Ivan</td>
+                                    <td>KGB</td>
+                                    <td>
+                                        <a href="javascript:void(0);" class="btn remove-user">Remove</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

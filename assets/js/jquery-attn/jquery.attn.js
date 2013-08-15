@@ -45,6 +45,7 @@
         message: '',
         target: null,
         classes: '',
+        onShow: $.noop,
         onClose: $.noop,
         onLoad: $.noop,
         fadeOut: null,
@@ -88,15 +89,15 @@
             
             attnContainer.addClass('attn-container');
             
-            $(this.element).bind('attn.clear', function(){
+            $(this.element).bind('attn-clear', function(){
                 attnContainer.children().each(function(event){
-                    $(this).trigger('attn.dismiss');
+                    $(this).trigger('attn-dismiss');
                 });
             });
         }
         
         this.clear = function(){
-            return $(this.element).trigger('attn.clear');
+            return $(this.element).trigger('attn-clear');
         }
         
         this.isValidMsgType = function(type){
@@ -179,9 +180,9 @@
         
         this.addMsg = function(msg){
             var msgElem = msg.toHtmlElement();
+            msgElem.hide();
             msgElem.prependTo(this.options.container);
-            var event = jQuery.Event('attn.show');
-            msgElem.trigger(event);
+            msg.show();
             msgElem.data('attnMsg', msg);
             this._bindMsgEvents(msgElem);
             return msg;
@@ -189,11 +190,11 @@
         
         this._bindMsgEvents = function(msg){
             var self = this;
-            $(msg).bind('attn.dismiss', function(event){
+            $(msg).bind('attn-dismiss', function(event){
                 var elem = this;
                 var attnMsg = $(elem).data('attnMsg');
                 attnMsg.dismiss(event);
-            }).bind('attn.remove', function(event){
+            }).bind('attn-remove', function(event){
                 var attnMsg = $(this).data('attnMsg');
                 attnMsg.remove(event);
             });
@@ -237,30 +238,26 @@
                 var closeBtn = $(this.options.closeBtn);
                 closeBtn.prependTo(elem);
                 closeBtn.click(function(){
-                    $(elem).trigger('attn.dismiss');
+                    $(elem).trigger('attn-dismiss');
                 })
             }
             
             if(this.options.fadeOut != null && typeof this.options.fadeOut == 'number'){
                 var self = this;
                 setTimeout(function(){
-                    self.element.trigger('attn.dismiss');
-                }, this.options.fadeOut)
+                    self.element.trigger('attn-dismiss');
+                }, this.options.fadeOut);
             }
             return elem;
         };
         
         this.dismiss = function(event){
            
-            event = event ? event : jQuery.Event('attn.dismiss');
+            event = event ? event : jQuery.Event('attn-dismiss');
             var self = this;
             this.options.onBeforeClose.apply(this, [event]);
             
             if(!event.isDefaultPrevented()){
-                
-                //if(this.content)
-                  //  $(this.content).trigger(event);
-                
                 $(this.element).fadeOut('fast', function(){
                     self.remove();
                     self.options.onAfterClose.apply(self, [event]);
@@ -269,10 +266,14 @@
         };
         
         this.remove = function(event){
-            event = event ? event : jQuery.Event('attn.remove');
-            //if(this.content)
-              //      $(this.content).trigger(event);
+            event = event ? event : jQuery.Event('attn-remove');
             $(this.element).remove();
+        };
+        
+        this.show = function(event){
+            event = event ? event : jQuery.Event('attn-show');
+            this.options.onShow.apply(this, []);
+            $(this.element).show();
         };
     };
     
